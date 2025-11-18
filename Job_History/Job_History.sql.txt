@@ -1,0 +1,29 @@
+/* ============================================================
+   JOB_HISTORY – EJERCICIOS (HR)
+   Autor: Gustavo Bauer
+   ============================================================ */
+
+
+/* 1. ¿Cuál es el histórico de los empleos que ha tenido el empleado
+      que se llama ‘Neena Kochhar’?
+      La tabla JOB_HISTORY contiene la información de los empleos
+      por los que ha pasado cada empleado. */
+
+/* Paso 1: buscar el employee_id de Neena Kochhar */
+SELECT employee_id,
+       first_name AS nombre,
+       last_name  AS apellido
+FROM employees
+WHERE first_name = 'Neena'
+  AND last_name = 'Kochhar';
+
+/* Paso 2: consultar su histórico en JOB_HISTORY */
+/* Sustituir 101 por el employee_id encontrado */
+
+SELECT employee_id,
+       job_id,
+       department_id,
+       start_date,
+       end_date
+FROM job_history
+WHERE employee_id = 101;    -- cambiar por el ID real de Neena
