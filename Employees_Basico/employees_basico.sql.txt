@@ -1,0 +1,79 @@
+/* ============================================================
+   EMPLOYEES – EJERCICIOS DE PRÁCTICA (HR)
+   Autor: Gustavo Bauer
+   ============================================================ */
+
+
+/* 1. Seleccionar los datos de los empleados que tengan un salario
+      mayor que 5000 y además pertenezcan al departamento 30, 40 o 50. */
+
+SELECT employee_id,
+       first_name AS nombre,
+       last_name  AS apellido,
+       salary     AS salario,
+       department_id AS departamento
+FROM employees
+WHERE salary > 5000
+  AND department_id IN (30, 40, 50);
+
+
+/* 2. Seleccionar aquellos empleados que no tienen comisión y que
+      trabajan en el departamento 10, 20 o 40. */
+
+SELECT employee_id,
+       first_name AS nombre,
+       last_name  AS apellido,
+       salary     AS salario,
+       commission_pct AS comision,
+       department_id AS departamento
+FROM employees
+WHERE commission_pct IS NULL
+  AND department_id IN (10, 20, 40);
+
+
+/* 3. Seleccionar los empleados que entraron en la empresa después del
+      ‘31/12/2007’. Ordenados por fecha de entrada y salario. */
+
+SELECT employee_id,
+       first_name AS nombre,
+       last_name  AS apellido,
+       hire_date  AS fecha_entrada,
+       salary     AS salario,
+       department_id AS departamento
+FROM employees
+WHERE hire_date > TO_DATE('31/12/2007', 'DD/MM/YYYY')
+ORDER BY hire_date, salary;
+
+
+/* 4. Seleccionar los empleados que tengan una ‘u’ en el apellido
+      ordenados por nombre. */
+
+SELECT employee_id,
+       first_name AS nombre,
+       last_name  AS apellido,
+       salary     AS salario,
+       department_id AS departamento
+FROM employees
+WHERE last_name LIKE '%u%'
+ORDER BY first_name;
+
+
+/* 5. Empleados que trabajan en el mismo departamento que el empleado 173
+      y tienen un salario superior al del empleado 113. */
+
+SELECT employee_id,
+       first_name AS nombre,
+       last_name  AS apellido,
+       salary,
+       department_id
+FROM employees
+WHERE department_id = (
+        SELECT department_id
+        FROM employees
+        WHERE employee_id = 173
+      )
+  AND salary > (
+        SELECT salary
+        FROM employees
+        WHERE employee_id = 113
+      );
